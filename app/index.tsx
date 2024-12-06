@@ -1,7 +1,9 @@
-import { Button } from "@/components/button";
+import { ExternalLink } from "@/app-example/components/ExternalLink";
+import { Button, NavButton } from "@/components/button";
 import { Card } from "@/components/card";
 import { Section, SectionTitle } from "@/components/section";
 import { FontAwesome } from "@expo/vector-icons";
+import { Link } from "expo-router";
 import { Image, Pressable, Text, View } from "react-native";
 
 const imeLogo = require("@/assets/images/ime-logo.png")
@@ -33,15 +35,23 @@ export default function Index() {
       </Card>
       <Section>
         <SectionTitle>Precisa de ajuda?</SectionTitle>
-        <Button className="w-full bg-[#7ac142]">Como usar o aplicativo?</Button>
+        <NavButton href="/tutorial" className="w-full bg-[#7ac142]">Como usar o aplicativo?</NavButton>
       </Section>
       <Section>
         <SectionTitle>Conheça os nossos sites!</SectionTitle>
         <View className="flex flex-row gap-4">
-          <Card className="bg-[#eaaa08] w-fit flex flex-col gap-4">
-            <FontAwesome size={100} name="cube" color="white" />
-            <Text className="text-[16px] font-extrabold text-white leading-none">Matemateca</Text>
-          </Card>
+          <ExternalLink href="https://matemateca.ime.usp.br/">
+            <Card className="bg-[#eaaa08] w-fit flex flex-col gap-4">
+              <FontAwesome size={100} name="cube" color="white" />
+              <Text className="text-[16px] font-extrabold text-white leading-none">Matemateca</Text>
+            </Card>
+          </ExternalLink>
+          <ExternalLink href="https://docs.google.com/document/d/1OuxJp8augSKuZ6rLnI4MrBjUvQvX9GsL_PDsuVp_O3o/edit?tab=t.0">
+            <Card className="bg-[#f47920] w-fit flex flex-col gap-4">
+              <FontAwesome size={100} name="cube" color="white" />
+              <Text className="text-[16px] font-extrabold text-white leading-none">PUB 2024</Text>
+            </Card>
+          </ExternalLink>
         </View>
       </Section>
     </View>
