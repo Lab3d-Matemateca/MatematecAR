@@ -6,11 +6,9 @@ const imeLogo = require("@/assets/images/ime-logo.png")
 export default function Index() {
   return (
     <View
-      style={{
-        flex: 1
-      }}
+      className="flex flex-row justify-between w-screen p-4 bg-[#f5f4f8] h-full"
     >
-      <FontAwesome size={48} name="circle" color="red" />
+      <FontAwesome size={48} name="circle" color="black" />
       <View className="flex flex-col">
         <Text>matematecAR</Text>
         <Text>EXPLORE, APRENDA, DIVIRTA-SE!</Text>
