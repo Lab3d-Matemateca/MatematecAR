@@ -19,7 +19,7 @@ export default function Index() {
         </View>
         <Image style={{width: 50, height: 50}} source={imeLogo} />
       </View>
-      <Card>
+      <Card className="bg-[#0079c2] py-[48px]">
         <View className="flex-1 flex flex-col items-center justify-center gap-4">
               <View className="flex flex-col items-center">
                   <Text className="text-[100px] font-extrabold text-white leading-none">AR</Text>
@@ -35,7 +35,15 @@ export default function Index() {
         <SectionTitle>Precisa de ajuda?</SectionTitle>
         <Button className="w-full bg-[#7ac142]">Como usar o aplicativo?</Button>
       </Section>
-
+      <Section>
+        <SectionTitle>Conheça os nossos sites!</SectionTitle>
+        <View className="flex flex-row gap-4">
+          <Card className="bg-[#eaaa08] w-fit flex flex-col gap-4">
+            <FontAwesome size={100} name="cube" color="white" />
+            <Text className="text-[16px] font-extrabold text-white leading-none">Matemateca</Text>
+          </Card>
+        </View>
+      </Section>
     </View>
   );
 }
