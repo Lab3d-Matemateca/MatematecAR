@@ -40,20 +40,6 @@
           "resizeMode": "contain",
           "backgroundColor": "#ffffff"
         }
-      ],
-      [
-        "@reactvision/react-viro",
-        {
-          "android": {
-            "xRMode": "AR"
-          }
-        }
-      ],
-      [
-        "expo-dev-launcher",
-        {
-          "launchMode": "most-recent"
-        }
       ]
     ],
     "experiments": {
