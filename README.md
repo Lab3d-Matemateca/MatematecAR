@@ -9,6 +9,7 @@
    ```
 
 2. Realize o prebuild
+
 O Viro (motor AR utilizado) não suporta o Expo GO. Então, é necessário realizar o build do projeto localmente.
 
    ```bash
@@ -22,6 +23,7 @@ O Viro (motor AR utilizado) não suporta o Expo GO. Então, é necessário reali
    ```
 
 4. Corrija a build
+
 O Viro modifica os arquivos de forma incorreta. Então, modifique o arquivo __MainApplication.kt__ para o arquivo abaixo:
 
 ```
