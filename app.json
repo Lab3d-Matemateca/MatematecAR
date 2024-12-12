@@ -40,7 +40,8 @@
           "resizeMode": "contain",
           "backgroundColor": "#ffffff"
         }
-      ]
+      ],
+      "@reactvision/react-viro"
     ],
     "experiments": {
       "typedRoutes": true
