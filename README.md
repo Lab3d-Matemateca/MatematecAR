@@ -1,5 +1,11 @@
 # MatematecAR
 
+## Setup
+
+Siga as instruções do site https://docs.expo.dev/get-started/set-up-your-environment/
+
+Lembre de selecionar o environment que o aplicativo deve ser executado.
+
 ## Vamos começar!
 
 1. Instale as dependências
@@ -12,9 +18,9 @@
 
 O Viro (motor AR utilizado) não suporta o Expo GO. Então, é necessário realizar o build do projeto localmente.
 
-   ```bash
-    npx expo prebuild
-   ```
+```bash
+ npx expo prebuild
+```
 
 3. Build o projeto localmente
 
@@ -24,7 +30,7 @@ O Viro (motor AR utilizado) não suporta o Expo GO. Então, é necessário reali
 
 4. Corrija a build
 
-O Viro modifica os arquivos de forma incorreta. Então, modifique o arquivo __MainApplication.kt__ para o arquivo abaixo:
+O Viro modifica os arquivos de forma incorreta. Então, modifique o arquivo **MainApplication.kt** para o arquivo abaixo:
 
 ```
 package com.xnths.matematecar
