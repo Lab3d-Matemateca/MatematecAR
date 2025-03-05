@@ -1,4 +1,3 @@
-import { ExternalLink } from "@/app-example/components/ExternalLink";
 import { Button, NavButton } from "@/components/button";
 import { Card } from "@/components/card";
 import { Section, SectionTitle } from "@/components/section";
@@ -40,18 +39,18 @@ export default function Index() {
       <Section>
         <SectionTitle>Conheça os nossos sites!</SectionTitle>
         <View className="flex flex-row gap-4">
-          <ExternalLink href="https://matemateca.ime.usp.br/">
+          <Link href="https://matemateca.ime.usp.br/">
             <Card className="bg-[#eaaa08] w-fit flex flex-col gap-4">
               <FontAwesome size={100} name="cube" color="white" />
               <Text className="text-[16px] font-extrabold text-white leading-none">Matemateca</Text>
             </Card>
-          </ExternalLink>
-          <ExternalLink href="https://docs.google.com/document/d/1OuxJp8augSKuZ6rLnI4MrBjUvQvX9GsL_PDsuVp_O3o/edit?tab=t.0">
+          </Link>
+          <Link href="https://docs.google.com/document/d/1OuxJp8augSKuZ6rLnI4MrBjUvQvX9GsL_PDsuVp_O3o/edit?tab=t.0">
             <Card className="bg-[#f47920] w-fit flex flex-col gap-4">
               <FontAwesome size={100} name="cube" color="white" />
               <Text className="text-[16px] font-extrabold text-white leading-none">PUB 2024</Text>
             </Card>
-          </ExternalLink>
+          </Link>
         </View>
       </Section>
     </View>
