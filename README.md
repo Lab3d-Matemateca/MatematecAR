@@ -25,10 +25,12 @@ O Viro (motor AR utilizado) não suporta o Expo GO. Então, é necessário reali
 3. Build o projeto localmente
 
    ```bash
-    npx expo run:android
+    npx expo run
    ```
 
 4. Corrija a build
+
+## Android
 
 O Viro modifica os arquivos de forma incorreta. Então, modifique o arquivo **MainApplication.kt** para o arquivo abaixo:
 
@@ -96,4 +98,41 @@ class MainApplication : Application(), ReactApplication {
   }
 }
 
+```
+
+## iOS
+
+### Dependências
+
+Note, que o desenvolvimento e teste de aplicativos para iOS necessita dos produtos da Apple. Isso significa que não será possivel continuar as instruções abaixo caso você não estaja utilizando um **macOS** e um **iPhone** com sistema operacional pelo menos 18.3 (Sequoia).
+
+### SDK da Apple
+
+Instale **Xcode** pela Apple Store.
+
+Após a instalação, conecte o iPhone ao computador usando um cabo USB-c.
+
+Com o Xcode aberto, vá às configurações do iPhone e procure por **Security & Privacy**. No final da página aparecerá Developer mode. Ative esse modo e reinicie o dispositivo. Siga as instruções no aparelho.
+
+### Instalação das dependências do POD
+
+Na pasta do projeto, rode o comando abaixo:
+
+```
+npx pod-install
+```
+
+**Atenção:** se a SDK não estiver instalada corretamente, o comando acima não irá funcionar.
+
+Depois, vá à basta \*_ios_ e rode o comando
+
+```
+pod install
+```
+
+Por fim, adicione o código abaixo no arquivo **ios/matemateca/info.plist**:
+
+```
+  <key>NSCameraUsageDescription</key>
+  <string>The camera is needed for AR functionality</string>
 ```
