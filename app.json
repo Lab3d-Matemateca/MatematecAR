@@ -42,7 +42,13 @@
           "backgroundColor": "#ffffff"
         }
       ],
-      "@reactvision/react-viro"
+      "@reactvision/react-viro",
+      [
+        "react-native-vision-camera",
+        {
+          "cameraPermissionText": "$(PRODUCT_NAME) needs access to your Camera."
+        }
+      ]
     ],
     "experiments": {
       "typedRoutes": true

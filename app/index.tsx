@@ -26,7 +26,7 @@ export default function Index() {
                   <Text className="text-[100px] font-extrabold text-white leading-none">AR</Text>
                   <Text className="text-[10px] font-extrabold text-white leading-none">REALIDADE AUMENTADA</Text>
               </View>
-              <NavButton href="/ar" className="bg-[#6ca8cd]">Começar</NavButton>
+              <NavButton href="/od" className="bg-[#6ca8cd]">Começar</NavButton>
           </View>
           <View className="flex-1 flex items-center justify-center">
               <FontAwesome size={100} name="cube" color="white" />
