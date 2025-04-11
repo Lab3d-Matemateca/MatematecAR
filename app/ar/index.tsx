@@ -1,9 +1,12 @@
 import {
+  Viro3DObject,
+  ViroAmbientLight,
   ViroARImageMarker,
   ViroARPlane,
   ViroARScene,
   ViroARSceneNavigator,
   ViroARTrackingTargets,
+  ViroMaterials,
   ViroNode,
   ViroText,
   ViroTrackingReason,
@@ -27,15 +30,30 @@ const HelloWorldSceneAR = () => {
 
   ViroARTrackingTargets.createTargets({
     uspCard: {
-      source: require("@/assets/usp.png"),
+      source: require("@/assets/bridge2.jpg"),
       orientation: "Up",
       physicalWidth: 0.85,
+    },
+  });
+
+  ViroMaterials.createMaterials({
+    default: {
+      lightingModel: "PBR",
+      diffuseTexture: require("@/assets/lambert4.png"),
+      metalness: require("@/assets/metalnessMap1.png"),
+      normalTexture: require("@/assets/normalMap1.png"),
     },
   });
 
   return (
     <ViroARScene>
       <ViroARImageMarker target="uspCard">
+        <ViroAmbientLight color="#ffffff" />
+        <Viro3DObject
+          scale={[0.1, 0.1, 0.1]}
+          source={require("@/assets/chess_piece_queen.glb")}
+          type="GLB"
+        />
         <ViroText
           text={text}
           scale={[0.5, 0.5, 0.5]}
