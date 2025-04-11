@@ -1,8 +1,10 @@
 import {
   ViroARImageMarker,
+  ViroARPlane,
   ViroARScene,
   ViroARSceneNavigator,
   ViroARTrackingTargets,
+  ViroNode,
   ViroText,
   ViroTrackingReason,
   ViroTrackingStateConstants,
@@ -33,16 +35,12 @@ const HelloWorldSceneAR = () => {
 
   return (
     <ViroARScene>
-      <ViroARImageMarker
-        onAnchorUpdated={(anchor) => {
-          setPosition(anchor.position);
-        }}
-        target="uspCard"
-      >
+      <ViroARImageMarker target="uspCard">
         <ViroText
           text={text}
           scale={[0.5, 0.5, 0.5]}
           position={[0, 0, 0]}
+          rotation={[-90, 0, 0]}
           style={styles.helloWorldTextStyle}
         />
       </ViroARImageMarker>
