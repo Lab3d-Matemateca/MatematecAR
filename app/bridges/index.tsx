@@ -80,12 +80,12 @@ const BridgesScene = () => {
         onAnchorFound={() => console.log("teste")}
       >
       </ViroARImageMarker> */}
-      <ViroARPlane minHeight={0.3} minWidth={0.3} alignment="Horizontal">
+      <ViroARPlane minHeight={0.1} minWidth={0.1} alignment="Horizontal">
         <ViroAmbientLight color="#ffffff" />
         <Viro3DObject
-          scale={[0.01, 0.01, 0.01]}
-          source={require("@/assets/island_bridges.obj")}
-          type="OBJ"
+          scale={[0.03, 0.03, 0.03]}
+          source={require("@/assets/bridge.glb")}
+          type="GLB"
         />
       </ViroARPlane>
     </ViroARScene>

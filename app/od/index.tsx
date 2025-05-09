@@ -10,7 +10,6 @@ import {
   ViroBox,
   ViroMaterials,
   ViroNode,
-  ViroSphere,
   ViroText,
   ViroTrackingReason,
   ViroTrackingStateConstants,
@@ -52,12 +51,6 @@ const HelloWorldSceneAR = () => {
     grayBox: {
       diffuseColor: "#fffccc",
     },
-    blackSphere: {
-      diffuseColor: "#000000",
-    },
-    whiteSphere: {
-      diffuseColor: "#fffffc",
-    },
   });
 
   const xn = 3;
@@ -72,17 +65,11 @@ const HelloWorldSceneAR = () => {
       for (let z = 0; z < zn; z++) {
         boxes.push(
           <ViroBox
-            key={`box-${x}-${y}-${z}`}
+            key={`${x}-${y}-${z}`}
             opacity={0.8}
             position={[(x - 1) * spacing, (y - 1) * spacing, (z - 1) * spacing]}
             scale={[0.05, 0.05, 0.05]}
             materials={(z + y + x) % 2 == 0 ? ["redBox"] : ["grayBox"]}
-          />,
-          <ViroSphere
-            key={`sphere-${x}-${y}-${z}`}
-            radius={0.025}
-            position={[(x - 1) * spacing, (y - 1) * spacing, (z - 1) * spacing]}
-            materials={(z + y + x) % 2 == 0 ? ["whiteSphere"] : ["blackSphere"]}
           />
         );
       }
@@ -91,7 +78,7 @@ const HelloWorldSceneAR = () => {
 
   return (
     <ViroARScene>
-      {/* <ViroARImageMarker
+      <ViroARImageMarker
         target="uspCard"
         onAnchorFound={() => console.log("teste")}
       >
@@ -101,10 +88,7 @@ const HelloWorldSceneAR = () => {
           source={require("@/assets/penrose_triangle.glb")}
           type="GLB"
         />
-      </ViroARImageMarker> */}
-      <ViroARPlane minHeight={0.1} minWidth={0.1} alignment="Horizontal">
-        {boxes}
-      </ViroARPlane>
+      </ViroARImageMarker>
     </ViroARScene>
   );
 };
