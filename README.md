@@ -22,15 +22,15 @@ O Viro (motor AR utilizado) não suporta o Expo GO. Então, é necessário reali
  npx expo prebuild
 ```
 
-3. Build o projeto localmente
+3. Corrija a build do Android
 
-   ```bash
-    npx expo run:android
-   ```
+Note que após o prebuild, foram criadas as pastas **android** e **ios**.
 
-4. Corrija a build
+Abra o diretório _android/app/src/main/java/com/(user)/matematecar_.
 
-O Viro modifica os arquivos de forma incorreta. Então, modifique o arquivo **MainApplication.kt** para o arquivo abaixo:
+Como o Viro edita os arquivos de forma incorreta, precisamos modificar o arquivo **MainApplication.kt** dentro desse diretório.
+
+Copie o código corrigido abaixo:
 
 ```
 package com.xnths.matematecar
@@ -97,3 +97,9 @@ class MainApplication : Application(), ReactApplication {
 }
 
 ```
+
+4. Build o projeto localmente
+
+   ```bash
+    npx expo run:android
+   ```
