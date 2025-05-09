@@ -17,7 +17,7 @@ import {
 import React, { useState } from "react";
 import { StyleSheet } from "react-native";
 
-const HelloWorldSceneAR = () => {
+const BridgesScene = () => {
   const [text, setText] = useState("Initializing AR...");
   const [position, setPosition] = useState();
 
@@ -79,15 +79,14 @@ const HelloWorldSceneAR = () => {
         target="uspCard"
         onAnchorFound={() => console.log("teste")}
       >
+      </ViroARImageMarker> */}
+      <ViroARPlane minHeight={0.3} minWidth={0.3} alignment="Horizontal">
         <ViroAmbientLight color="#ffffff" />
         <Viro3DObject
-          scale={[0.102, 0.102, 0.102]}
-          source={require("@/assets/penrose_triangle.glb")}
-          type="GLB"
+          scale={[0.01, 0.01, 0.01]}
+          source={require("@/assets/island_bridges.obj")}
+          type="OBJ"
         />
-      </ViroARImageMarker> */}
-      <ViroARPlane minHeight={0.1} minWidth={0.1} alignment="Horizontal">
-        {boxes}
       </ViroARPlane>
     </ViroARScene>
   );
@@ -98,7 +97,7 @@ export default () => {
     <ViroARSceneNavigator
       autofocus={true}
       initialScene={{
-        scene: HelloWorldSceneAR,
+        scene: BridgesScene,
       }}
       style={styles.f1}
     />

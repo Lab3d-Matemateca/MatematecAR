@@ -30,7 +30,7 @@ export default function Index() {
               REALIDADE AUMENTADA
             </Text>
           </View>
-          <NavButton href="/ar" className="bg-[#6ca8cd]">
+          <NavButton href="/lista" className="bg-[#6ca8cd]">
             Começar
           </NavButton>
         </View>
