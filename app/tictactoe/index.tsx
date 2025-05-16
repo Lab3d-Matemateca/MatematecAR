@@ -17,12 +17,21 @@ import {
   ViroTrackingReason,
   ViroTrackingStateConstants,
 } from "@reactvision/react-viro";
-import React, { useState } from "react";
+import React, { ReactNode, useState } from "react";
 import { StyleSheet, Text, View } from "react-native";
+
+const xn = 3;
+const yn = 3;
+const zn = 3;
+
+const spacing = 0.08;
+const radius = 0.025;
+const thickness = 0.005;
 
 const HelloWorldSceneAR = () => {
   const [text, setText] = useState("Initializing AR...");
   const [position, setPosition] = useState<[number, number, number]>([0, 0, 0]);
+  const [objs, setObj] = useState<ReactNode[]>(renderGrid());
 
   function onInitialized(state: any, reason: ViroTrackingReason) {
     console.log("onInitialized", state, reason);
@@ -62,14 +71,63 @@ const HelloWorldSceneAR = () => {
     },
   });
 
-  const xn = 3;
-  const yn = 3;
-  const zn = 3;
+  return (
+    <ViroARScene>
+      <ViroARPlane minHeight={0.1} minWidth={0.1} alignment="Horizontal">
+        <ViroNode
+          dragType="FixedToWorld"
+          onDrag={(dragToPos, source) => setPosition(dragToPos)}
+          position={position}
+        >
+          {objs}
+        </ViroNode>
+      </ViroARPlane>
+    </ViroARScene>
+  );
+};
 
-  const objs = [];
-  const spacing = 0.08;
-  const radius = 0.025;
-  const thickness = 0.005;
+export default () => {
+  return (
+    <View style={styles.f1}>
+      <View style={styles.floatingButton}>
+        <Button
+          className="bg-white w-[150px]"
+          onPress={() => tutorialAnimation()}
+        >
+          <Text className="text-black">Tutorial</Text>
+        </Button>
+      </View>
+      <ViroARSceneNavigator
+        autofocus={true}
+        initialScene={{
+          scene: HelloWorldSceneAR,
+        }}
+      />
+    </View>
+  );
+};
+
+var styles = StyleSheet.create({
+  f1: {
+    flex: 1,
+  },
+  floatingButton: {
+    position: "absolute",
+    bottom: 20,
+    right: 20,
+    zIndex: 1,
+  },
+  helloWorldTextStyle: {
+    fontFamily: "Arial",
+    fontSize: 30,
+    color: "#ffffff",
+    textAlignVertical: "center",
+    textAlign: "center",
+  },
+});
+
+const tutorialAnimation = () => {
+  const objs: ReactNode[] = [];
 
   for (let x = 0; x < xn; x++) {
     for (let y = 0; y < yn; y++) {
@@ -90,6 +148,19 @@ const HelloWorldSceneAR = () => {
         //     opacity={0.8}
         //   />
         // );
+      }
+    }
+  }
+
+  return objs;
+};
+
+const renderGrid = () => {
+  const objs: ReactNode[] = [];
+
+  for (let x = 0; x < xn; x++) {
+    for (let y = 0; y < yn; y++) {
+      for (let z = 0; z < zn; z++) {
         if (x > 0 && y > 0) {
           objs.push(
             <ViroPolyline
@@ -148,54 +219,5 @@ const HelloWorldSceneAR = () => {
     }
   }
 
-  return (
-    <ViroARScene>
-      <ViroARPlane minHeight={0.1} minWidth={0.1} alignment="Horizontal">
-        <ViroNode
-          dragType="FixedToWorld"
-          onDrag={(dragToPos, source) => setPosition(dragToPos)}
-          position={position}
-        >
-          {objs}
-        </ViroNode>
-      </ViroARPlane>
-    </ViroARScene>
-  );
+  return objs;
 };
-
-export default () => {
-  return (
-    <View style={styles.f1}>
-      <View style={styles.floatingButton}>
-        <Button className="bg-white w-[150px]">
-          <Text className="text-black">Tutorial</Text>
-        </Button>
-      </View>
-      <ViroARSceneNavigator
-        autofocus={true}
-        initialScene={{
-          scene: HelloWorldSceneAR,
-        }}
-      />
-    </View>
-  );
-};
-
-var styles = StyleSheet.create({
-  f1: {
-    flex: 1,
-  },
-  floatingButton: {
-    position: "absolute",
-    bottom: 20,
-    right: 20,
-    zIndex: 1,
-  },
-  helloWorldTextStyle: {
-    fontFamily: "Arial",
-    fontSize: 30,
-    color: "#ffffff",
-    textAlignVertical: "center",
-    textAlign: "center",
-  },
-});
