@@ -10,13 +10,14 @@ import {
   ViroBox,
   ViroMaterials,
   ViroNode,
+  ViroPolyline,
   ViroSphere,
   ViroText,
   ViroTrackingReason,
   ViroTrackingStateConstants,
 } from "@reactvision/react-viro";
 import React, { useState } from "react";
-import { StyleSheet } from "react-native";
+import { StyleSheet, View } from "react-native";
 
 const HelloWorldSceneAR = () => {
   const [text, setText] = useState("Initializing AR...");
@@ -46,17 +47,17 @@ const HelloWorldSceneAR = () => {
       metalness: require("@/assets/metalnessMap1.png"),
       normalTexture: require("@/assets/normalMap1.png"),
     },
-    redBox: {
+    black: {
       diffuseColor: "#000000",
     },
-    grayBox: {
-      diffuseColor: "#fffccc",
+    red: {
+      diffuseColor: "#E82017",
     },
-    blackSphere: {
-      diffuseColor: "#1AE4E5",
+    gray: {
+      diffuseColor: "#ffffcc",
     },
-    whiteSphere: {
-      diffuseColor: "#FF0100",
+    white: {
+      diffuseColor: "#ffffff",
     },
   });
 
@@ -64,28 +65,84 @@ const HelloWorldSceneAR = () => {
   const yn = 3;
   const zn = 3;
 
-  const boxes = [];
+  const objs = [];
   const spacing = 0.08;
+  const radius = 0.025;
+  const thickness = 0.005;
 
   for (let x = 0; x < xn; x++) {
     for (let y = 0; y < yn; y++) {
       for (let z = 0; z < zn; z++) {
-        boxes.push(
-          <ViroBox
-            key={`box-${x}-${y}-${z}`}
-            opacity={0.8}
-            position={[(x - 1) * spacing, (y - 1) * spacing, (z - 1) * spacing]}
-            scale={[0.05, 0.05, 0.05]}
-            materials={(z + y + x) % 2 == 0 ? ["redBox"] : ["grayBox"]}
-          />,
-          <ViroSphere
-            key={`sphere-${x}-${y}-${z}`}
-            radius={0.025}
-            position={[(x - 1) * spacing, (y - 1) * spacing, (z - 1) * spacing]}
-            materials={(z + y + x) % 2 == 0 ? ["whiteSphere"] : ["blackSphere"]}
-            opacity={0}
-          />
-        );
+        // objs.push(
+        //   // <ViroBox
+        //   //   key={`box-${x}-${y}-${z}`}
+        //   //   opacity={0.8}
+        //   //   position={[(x - 1) * spacing, (y - 1) * spacing, (z - 1) * spacing]}
+        //   //   scale={[0.05, 0.05, 0.05]}
+        //   //   materials={(z + y + x) % 2 == 0 ? ["redBox"] : ["grayBox"]}
+        //   // />,
+        //   <ViroSphere
+        //     key={`sphere-${x}-${y}-${z}`}
+        //     radius={radius}
+        //     position={[(x - 1) * spacing, (y - 1) * spacing, (z - 1) * spacing]}
+        //     materials={(z + y + x) % 2 == 0 ? ["gray"] : ["red"]}
+        //     opacity={0.8}
+        //   />
+        // );
+        if (x > 0 && y > 0) {
+          objs.push(
+            <ViroPolyline
+              position={[
+                (x - 1) * spacing - radius * 2,
+                (y - 1) * spacing - radius * 2,
+                (z - 1) * spacing,
+              ]}
+              points={[
+                [0, 0, -1 * radius * 2],
+                [0, 0, radius * 2],
+              ]}
+              thickness={thickness}
+              materials={"white"}
+              key={`line-xz-${x}-${y}-${z}`}
+            />
+          );
+        }
+        if (z > 0 && x > 0) {
+          objs.push(
+            <ViroPolyline
+              position={[
+                (x - 1) * spacing - radius * 2,
+                (y - 1) * spacing,
+                (z - 1) * spacing - radius * 2,
+              ]}
+              points={[
+                [0, -1 * radius * 2, 0],
+                [0, radius * 2, 0],
+              ]}
+              thickness={thickness}
+              materials={"gray"}
+              key={`line-xy-${x}-${y}-${z}`}
+            />
+          );
+        }
+        if (y > 0 && z > 0) {
+          objs.push(
+            <ViroPolyline
+              position={[
+                (x - 1) * spacing,
+                (y - 1) * spacing - radius * 2,
+                (z - 1) * spacing - radius * 2,
+              ]}
+              points={[
+                [-1 * radius * 2, 0, 0],
+                [radius * 2, 0, 0],
+              ]}
+              thickness={thickness}
+              materials={"white"}
+              key={`line-zy-${x}-${y}-${z}`}
+            />
+          );
+        }
       }
     }
   }
@@ -98,7 +155,7 @@ const HelloWorldSceneAR = () => {
           onDrag={(dragToPos, source) => setPosition(dragToPos)}
           position={position}
         >
-          {boxes}
+          {objs}
         </ViroNode>
       </ViroARPlane>
     </ViroARScene>
@@ -107,13 +164,14 @@ const HelloWorldSceneAR = () => {
 
 export default () => {
   return (
-    <ViroARSceneNavigator
-      autofocus={true}
-      initialScene={{
-        scene: HelloWorldSceneAR,
-      }}
-      style={styles.f1}
-    />
+    <View style={styles.f1}>
+      <ViroARSceneNavigator
+        autofocus={true}
+        initialScene={{
+          scene: HelloWorldSceneAR,
+        }}
+      />
+    </View>
   );
 };
 
