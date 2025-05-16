@@ -20,7 +20,7 @@ import { StyleSheet } from "react-native";
 
 const HelloWorldSceneAR = () => {
   const [text, setText] = useState("Initializing AR...");
-  const [position, setPosition] = useState();
+  const [position, setPosition] = useState<[number, number, number]>([0, 0, 0]);
 
   function onInitialized(state: any, reason: ViroTrackingReason) {
     console.log("onInitialized", state, reason);
@@ -47,16 +47,16 @@ const HelloWorldSceneAR = () => {
       normalTexture: require("@/assets/normalMap1.png"),
     },
     redBox: {
-      diffuseColor: "#ff0000",
+      diffuseColor: "#000000",
     },
     grayBox: {
       diffuseColor: "#fffccc",
     },
     blackSphere: {
-      diffuseColor: "#000000",
+      diffuseColor: "#1AE4E5",
     },
     whiteSphere: {
-      diffuseColor: "#fffffc",
+      diffuseColor: "#FF0100",
     },
   });
 
@@ -83,6 +83,7 @@ const HelloWorldSceneAR = () => {
             radius={0.025}
             position={[(x - 1) * spacing, (y - 1) * spacing, (z - 1) * spacing]}
             materials={(z + y + x) % 2 == 0 ? ["whiteSphere"] : ["blackSphere"]}
+            opacity={0}
           />
         );
       }
@@ -91,19 +92,14 @@ const HelloWorldSceneAR = () => {
 
   return (
     <ViroARScene>
-      {/* <ViroARImageMarker
-        target="uspCard"
-        onAnchorFound={() => console.log("teste")}
-      >
-        <ViroAmbientLight color="#ffffff" />
-        <Viro3DObject
-          scale={[0.102, 0.102, 0.102]}
-          source={require("@/assets/penrose_triangle.glb")}
-          type="GLB"
-        />
-      </ViroARImageMarker> */}
       <ViroARPlane minHeight={0.1} minWidth={0.1} alignment="Horizontal">
-        {boxes}
+        <ViroNode
+          dragType="FixedToWorld"
+          onDrag={(dragToPos, source) => setPosition(dragToPos)}
+          position={position}
+        >
+          {boxes}
+        </ViroNode>
       </ViroARPlane>
     </ViroARScene>
   );

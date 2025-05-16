@@ -64,7 +64,7 @@ const BridgesScene = () => {
         boxes.push(
           <ViroBox
             key={`${x}-${y}-${z}`}
-            opacity={0.8}
+            opacity={0.5}
             position={[(x - 1) * spacing, (y - 1) * spacing, (z - 1) * spacing]}
             scale={[0.05, 0.05, 0.05]}
             materials={["redBox"]}
