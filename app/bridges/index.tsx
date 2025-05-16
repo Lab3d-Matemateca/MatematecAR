@@ -19,7 +19,8 @@ import { StyleSheet } from "react-native";
 
 const BridgesScene = () => {
   const [text, setText] = useState("Initializing AR...");
-  const [position, setPosition] = useState();
+
+  const [position, setPosition] = useState<[number, number, number]>([0, 0, 0]);
 
   function onInitialized(state: any, reason: ViroTrackingReason) {
     console.log("onInitialized", state, reason);
@@ -75,18 +76,19 @@ const BridgesScene = () => {
 
   return (
     <ViroARScene>
-      {/* <ViroARImageMarker
-        target="uspCard"
-        onAnchorFound={() => console.log("teste")}
-      >
-      </ViroARImageMarker> */}
       <ViroARPlane minHeight={0.1} minWidth={0.1} alignment="Horizontal">
         <ViroAmbientLight color="#ffffff" />
-        <Viro3DObject
-          scale={[0.03, 0.03, 0.03]}
-          source={require("@/assets/bridge.glb")}
-          type="GLB"
-        />
+        <ViroNode
+          dragType="FixedToWorld"
+          onDrag={(dragToPos, source) => setPosition(dragToPos)}
+          position={position}
+        >
+          <Viro3DObject
+            scale={[0.05, 0.05, 0.05]}
+            source={require("@/assets/bridge.glb")}
+            type="GLB"
+          />
+        </ViroNode>
       </ViroARPlane>
     </ViroARScene>
   );
