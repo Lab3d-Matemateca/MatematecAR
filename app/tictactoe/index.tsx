@@ -1,3 +1,4 @@
+import { Button } from "@/components/button";
 import {
   Viro3DObject,
   ViroAmbientLight,
@@ -17,7 +18,7 @@ import {
   ViroTrackingStateConstants,
 } from "@reactvision/react-viro";
 import React, { useState } from "react";
-import { StyleSheet, View } from "react-native";
+import { StyleSheet, Text, View } from "react-native";
 
 const HelloWorldSceneAR = () => {
   const [text, setText] = useState("Initializing AR...");
@@ -165,6 +166,11 @@ const HelloWorldSceneAR = () => {
 export default () => {
   return (
     <View style={styles.f1}>
+      <View style={styles.floatingButton}>
+        <Button className="bg-white w-[150px]">
+          <Text className="text-black">Tutorial</Text>
+        </Button>
+      </View>
       <ViroARSceneNavigator
         autofocus={true}
         initialScene={{
@@ -176,7 +182,15 @@ export default () => {
 };
 
 var styles = StyleSheet.create({
-  f1: { flex: 1 },
+  f1: {
+    flex: 1,
+  },
+  floatingButton: {
+    position: "absolute",
+    bottom: 20,
+    right: 20,
+    zIndex: 1,
+  },
   helloWorldTextStyle: {
     fontFamily: "Arial",
     fontSize: 30,
