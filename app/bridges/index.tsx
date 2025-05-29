@@ -1,6 +1,7 @@
 import {
   Viro3DObject,
   ViroAmbientLight,
+  ViroAnimations,
   ViroARImageMarker,
   ViroARPlane,
   ViroARPlaneSelector,
@@ -14,22 +15,17 @@ import {
   ViroTrackingReason,
   ViroTrackingStateConstants,
 } from "@reactvision/react-viro";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { StyleSheet } from "react-native";
 
 const BridgesScene = () => {
-  const [text, setText] = useState("Initializing AR...");
+  const [animationName, setAnimationName] = useState("fadeToLow");
 
-  const [position, setPosition] = useState<[number, number, number]>([0, 0, 0]);
-
-  function onInitialized(state: any, reason: ViroTrackingReason) {
-    console.log("onInitialized", state, reason);
-    if (state === ViroTrackingStateConstants.TRACKING_NORMAL) {
-      setText("Hello World!");
-    } else if (state === ViroTrackingStateConstants.TRACKING_UNAVAILABLE) {
-      // Handle loss of tracking
-    }
-  }
+  const handleAnimationFinish = () => {
+    setAnimationName((prev) =>
+      prev === "fadeToLow" ? "fadeToHigh" : "fadeToLow"
+    );
+  };
 
   ViroARTrackingTargets.createTargets({
     uspCard: {
@@ -51,41 +47,110 @@ const BridgesScene = () => {
     },
   });
 
-  const xn = 3;
-  const yn = 3;
-  const zn = 3;
-
-  const boxes = [];
-  const spacing = 0.08;
-
-  for (let x = 0; x < xn; x++) {
-    for (let y = 0; y < yn; y++) {
-      for (let z = 0; z < zn; z++) {
-        boxes.push(
-          <ViroBox
-            key={`${x}-${y}-${z}`}
-            opacity={0.5}
-            position={[(x - 1) * spacing, (y - 1) * spacing, (z - 1) * spacing]}
-            scale={[0.05, 0.05, 0.05]}
-            materials={["redBox"]}
-          />
-        );
-      }
-    }
-  }
+  ViroAnimations.registerAnimations({
+    fadeToLow: {
+      properties: { opacity: 0.8, positionY: 0.12 },
+      duration: 500,
+    },
+    fadeToHigh: {
+      properties: { opacity: 1.0, positionY: 0.08 },
+      easing: "Bounce",
+      duration: 500,
+    },
+  });
 
   return (
     <ViroARScene>
       <ViroARPlane minHeight={0.1} minWidth={0.1} alignment="Horizontal">
         <ViroAmbientLight color="#ffffff" />
-        <ViroNode
-          dragType="FixedToWorld"
-          onDrag={(dragToPos, source) => setPosition(dragToPos)}
-          position={position}
-        >
+        <Viro3DObject
+          scale={[0.05, 0.05, 0.05]}
+          source={require("@/assets/pontes_de_konisgberg.glb")}
+          type="GLB"
+        />
+        <Viro3DObject
+          scale={[0.05, 0.05, 0.05]}
+          source={require("@/assets/island_letters.glb")}
+          type="GLB"
+        />
+        <ViroNode>
           <Viro3DObject
+            animation={{
+              name: animationName,
+              run: true,
+              onFinish: handleAnimationFinish,
+            }}
             scale={[0.05, 0.05, 0.05]}
-            source={require("@/assets/bridge.glb")}
+            opacity={1.0}
+            position={[-0.4, 0.08, -0.3]}
+            source={require("@/assets/ponte.glb")}
+            type="GLB"
+          />
+          <Viro3DObject
+            animation={{
+              name: animationName,
+              run: true,
+              onFinish: handleAnimationFinish,
+            }}
+            scale={[0.05, 0.05, 0.05]}
+            position={[-0.4, 0.08, 0.05]}
+            source={require("@/assets/ponte.glb")}
+            type="GLB"
+          />
+          <Viro3DObject
+            animation={{
+              name: animationName,
+              run: true,
+              onFinish: handleAnimationFinish,
+            }}
+            scale={[0.05, 0.05, 0.05]}
+            position={[-0.18, 0.08, 0.05]}
+            source={require("@/assets/ponte.glb")}
+            type="GLB"
+          />
+          <Viro3DObject
+            animation={{
+              name: animationName,
+              run: true,
+              onFinish: handleAnimationFinish,
+            }}
+            scale={[0.05, 0.05, 0.05]}
+            position={[-0.02, 0.08, 0.19]}
+            rotation={[0, 90, 0]}
+            source={require("@/assets/ponte.glb")}
+            type="GLB"
+          />
+          <Viro3DObject
+            animation={{
+              name: animationName,
+              run: true,
+              onFinish: handleAnimationFinish,
+            }}
+            scale={[0.05, 0.05, 0.05]}
+            position={[0.15, 0.08, -0.29]}
+            source={require("@/assets/ponte.glb")}
+            type="GLB"
+          />
+          <Viro3DObject
+            animation={{
+              name: animationName,
+              run: true,
+              onFinish: handleAnimationFinish,
+            }}
+            scale={[0.05, 0.05, 0.05]}
+            position={[0.15, 0.08, 0.01]}
+            source={require("@/assets/ponte.glb")}
+            type="GLB"
+          />
+          <Viro3DObject
+            animation={{
+              name: animationName,
+              run: true,
+              onFinish: handleAnimationFinish,
+            }}
+            scale={[0.05, 0.05, 0.05]}
+            position={[0.15, 0.08, 0.32]}
+            source={require("@/assets/ponte.glb")}
             type="GLB"
           />
         </ViroNode>
