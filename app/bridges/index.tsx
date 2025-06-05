@@ -1,3 +1,5 @@
+import { Button } from "@/components/button";
+import { animationControl } from "@/context/animationState";
 import {
   Viro3DObject,
   ViroAmbientLight,
@@ -16,10 +18,11 @@ import {
   ViroTrackingStateConstants,
 } from "@reactvision/react-viro";
 import React, { useEffect, useState } from "react";
-import { StyleSheet } from "react-native";
+import { StyleSheet, Text, View } from "react-native";
 
 const BridgesScene = () => {
   const [animationName, setAnimationName] = useState("fadeToLow");
+  const [runNoSolutionAnimation, setRunNoSolutionAnimation] = useState(false);
 
   const handleAnimationFinish = () => {
     setAnimationName((prev) =>
@@ -35,18 +38,6 @@ const BridgesScene = () => {
     },
   });
 
-  ViroMaterials.createMaterials({
-    default: {
-      lightingModel: "PBR",
-      diffuseTexture: require("@/assets/lambert4.png"),
-      metalness: require("@/assets/metalnessMap1.png"),
-      normalTexture: require("@/assets/normalMap1.png"),
-    },
-    redBox: {
-      diffuseColor: "#ff0000",
-    },
-  });
-
   ViroAnimations.registerAnimations({
     fadeToLow: {
       properties: { opacity: 0.8, positionY: 0.12 },
@@ -58,6 +49,13 @@ const BridgesScene = () => {
       duration: 500,
     },
   });
+
+  useEffect(() => {
+    animationControl.triggerUpdate = () => {
+      animationControl.runAnimation = true;
+      setRunNoSolutionAnimation(true);
+    };
+  }, []);
 
   return (
     <ViroARScene>
@@ -77,7 +75,7 @@ const BridgesScene = () => {
           <Viro3DObject
             animation={{
               name: animationName,
-              run: true,
+              run: runNoSolutionAnimation,
               onFinish: handleAnimationFinish,
             }}
             scale={[0.05, 0.05, 0.05]}
@@ -89,7 +87,7 @@ const BridgesScene = () => {
           <Viro3DObject
             animation={{
               name: animationName,
-              run: true,
+              run: runNoSolutionAnimation,
               onFinish: handleAnimationFinish,
             }}
             scale={[0.05, 0.05, 0.05]}
@@ -100,7 +98,7 @@ const BridgesScene = () => {
           <Viro3DObject
             animation={{
               name: animationName,
-              run: true,
+              run: runNoSolutionAnimation,
               onFinish: handleAnimationFinish,
             }}
             scale={[0.05, 0.05, 0.05]}
@@ -111,7 +109,7 @@ const BridgesScene = () => {
           <Viro3DObject
             animation={{
               name: animationName,
-              run: true,
+              run: runNoSolutionAnimation,
               onFinish: handleAnimationFinish,
             }}
             scale={[0.05, 0.05, 0.05]}
@@ -123,7 +121,7 @@ const BridgesScene = () => {
           <Viro3DObject
             animation={{
               name: animationName,
-              run: true,
+              run: runNoSolutionAnimation,
               onFinish: handleAnimationFinish,
             }}
             scale={[0.05, 0.05, 0.05]}
@@ -134,7 +132,7 @@ const BridgesScene = () => {
           <Viro3DObject
             animation={{
               name: animationName,
-              run: true,
+              run: runNoSolutionAnimation,
               onFinish: handleAnimationFinish,
             }}
             scale={[0.05, 0.05, 0.05]}
@@ -145,7 +143,7 @@ const BridgesScene = () => {
           <Viro3DObject
             animation={{
               name: animationName,
-              run: true,
+              run: runNoSolutionAnimation,
               onFinish: handleAnimationFinish,
             }}
             scale={[0.05, 0.05, 0.05]}
@@ -161,23 +159,43 @@ const BridgesScene = () => {
 
 export default () => {
   return (
-    <ViroARSceneNavigator
-      autofocus={true}
-      initialScene={{
-        scene: BridgesScene,
-      }}
-      style={styles.f1}
-    />
+    <View style={styles.container}>
+      <ViroARSceneNavigator
+        autofocus={true}
+        initialScene={{
+          scene: BridgesScene,
+        }}
+        style={styles.f1}
+      />
+      <View style={styles.floatingButton}>
+        <Button
+          style={[
+            {
+              backgroundColor: animationControl.runAnimation
+                ? "#0079c2"
+                : "#ffffff",
+            },
+          ]}
+          onPress={() => animationControl.triggerUpdate()}
+        >
+          <Text className="text-black">Com solução</Text>
+        </Button>
+      </View>
+    </View>
   );
 };
 
-var styles = StyleSheet.create({
-  f1: { flex: 1 },
-  helloWorldTextStyle: {
-    fontFamily: "Arial",
-    fontSize: 30,
-    color: "#ffffff",
-    textAlignVertical: "center",
-    textAlign: "center",
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+  f1: {
+    flex: 1,
+  },
+  floatingButton: {
+    position: "absolute",
+    bottom: 16,
+    right: 16,
+    zIndex: 1,
   },
 });
